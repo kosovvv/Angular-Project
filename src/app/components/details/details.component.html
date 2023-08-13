@@ -36,7 +36,7 @@
                     </div>
                     <div class="comment-widgets" *ngIf="comments | async as comments">
                         <ng-container *ngFor="let comment of comments" >
-                            <app-comments [comment]="comment"></app-comments>
+                            <app-comments (deleteNotify)="onCommentDelete($event)" [comment]="comment"></app-comments>
                         </ng-container>
                     </div> <!-- Card -->
                 </div>

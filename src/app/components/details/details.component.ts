@@ -85,9 +85,17 @@ export class DetailsComponent implements OnInit {
       })
     ).subscribe((updatedComments) => {
       if (updatedComments) {
-        // Update the comments observable with the new data
         this.comments = of(updatedComments);
       }
     });
+  }
+  onCommentDelete(event : boolean) {
+    this.product.pipe(
+      switchMap((product) => {
+        return this.commentsService.getCommentsByProduct(product._id)
+      })
+    ).subscribe(updatedComments => {
+        this.comments = of(updatedComments);
+    })
   }
 }
