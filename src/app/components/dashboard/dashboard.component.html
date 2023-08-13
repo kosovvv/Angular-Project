@@ -1,0 +1,9 @@
+<div class="row space-top">
+    <div class="col-md-12">
+        <h1>Welcome to Furniture System</h1>
+        <p>Select furniture from the catalog to view details.</p>
+    </div>
+</div>
+<div *ngFor="let product of (prodoucts$ | async)" class="row space-top">
+    <app-cart-item [product]="product"></app-cart-item>
+</div>

@@ -1,0 +1,5 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+    <textarea class="comment" [(ngModel)]="initialComment" name="comment"></textarea>
+    <br>
+    <button type="submit" class="btn btn-primary">Comment</button>
+</form>

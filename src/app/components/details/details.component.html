@@ -1,0 +1,47 @@
+<ng-container *ngIf="(product | async) as product">
+    <div class="row space-top">
+        <div class="col-md-12">
+            <h1>Furniture Details</h1>
+        </div>
+    </div>
+    <div class="row space-top">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <img src={{product.img}} />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <p>Make: <span>{{product.make}}</span></p>
+            <p>Model: <span>{{product.model}}</span></p>
+            <p>Year: <span>{{product.year}}</span></p>
+            <p>Description: <span>{{product.description}}</span></p>
+            <p>Price: <span>{{product.price}}</span></p>
+            <p>Material: <span>{{product.material}}</span></p>
+            <ng-container *ngIf="true">
+                <div>
+                    <a [routerLink]="['/edit', product._id]" class="btn btn-info">Edit</a>
+                    <a (click)="onDelete()" class="btn btn-red">Delete</a>
+                    <a (click)="onLike()" class="btn btn-info">Like</a>
+                </div>
+            </ng-container>
+        </div>
+        <app-create-comment (myCustomEvent)="customEventHandler($event)"></app-create-comment>
+        <div class="row d-flex justify-content-center mt-100 mb-100">
+            <div class="col-lg-6">
+                <div class="card-comments">
+                    <div class="card-comments-body text-center">
+                        <h4 class="card-title">Latest Comment </h4>
+                    </div>
+                    <div class="comment-widgets" *ngIf="comments | async as comments">
+                        <ng-container *ngFor="let comment of comments" >
+                            <app-comments [comment]="comment"></app-comments>
+                        </ng-container>
+                    </div> <!-- Card -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-container>

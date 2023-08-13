@@ -1,0 +1,15 @@
+<header>
+    <h1><a href="/">Furniture Store</a></h1>
+    <nav>
+        <a routerLink="/">Dashboard</a>
+        <div id="user" *ngIf="authService.isLoggedIn$ | async">
+            <a routerLink="/create">Create Furniture</a>
+            <a routerLink="/my-furniture">My Publications</a>
+            <a routerLink="/logout">Logout</a>
+        </div>
+        <div id="guest" *ngIf="authService.isLoggedOut$ | async">
+            <a routerLink="/login">Login</a>
+            <a routerLink="/register">Register</a>
+        </div>
+    </nav>
+</header>
