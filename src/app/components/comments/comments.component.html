@@ -1,9 +1,19 @@
 <div class="d-flex flex-row comment-row">
     <div class="comment-text active w-100">
-        <h6 class="font-medium">{{comment.authorName}}</h6> <span class="m-b-15 d-block">{{comment.description}}</span>
-        <div class="comment-footer"> <span class="text-muted float-right">{{comment.createdAt}}</span>
-            <button type="button" class="btn btn-cyan btn-sm">Edit</button>
-            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-        </div>
+        <h6 class="font-medium">{{ comment.authorName }}</h6>
+        <ng-container *ngIf="editing; else viewMode">
+            <input type="text" class="form-control" [(ngModel)]="editedDescription">
+            <div class="comment-footer">
+                <button (click)="onSaveComment()" type="button" class="btn btn-success btn-sm">Save</button>
+            </div>
+        </ng-container>
+        <ng-template #viewMode>
+            <span class="m-b-15 d-block">{{ comment.description }}</span>
+            <div class="comment-footer">
+                <span class="text-muted float-right">{{ comment.createdAt }}</span>
+                <button (click)="onEditComment()" type="button" class="btn btn-cyan btn-sm">Edit</button>
+                <button (click)="onDeleteComment()" type="button" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+        </ng-template>
     </div>
 </div>

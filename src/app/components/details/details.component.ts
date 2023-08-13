@@ -17,9 +17,15 @@ export class DetailsComponent implements OnInit {
 
   user!: IUser | null
   product!: Observable<IProduct>
-  comments! : Observable<IComment[] | null>;
-  constructor(private authService: AuthServiceService, private route: ActivatedRoute, 
-    private productService: ProductsService, private router: Router, private commentsService: CommentsService) { }
+  comments!: Observable<IComment[] | null>;
+  
+  constructor(
+    private authService: AuthServiceService,
+    private route: ActivatedRoute,
+    private productService: ProductsService,
+    private router: Router,
+    private commentsService: CommentsService
+  ) { }
 
   ngOnInit(): void {
     this.product = this.route.data.pipe(
@@ -28,14 +34,18 @@ export class DetailsComponent implements OnInit {
     this.comments = this.route.data.pipe(
       map(item => item['comments'])
     )
-    
+
     this.authService.user$.subscribe((user) => {
       this.user = user;
     })
-    
-
-    
   }
+
+  reloadComments(): void {
+    this.comments = this.route.data.pipe(
+      map(item => item['comments'])
+    )
+  }
+
   onDelete() {
     this.product.pipe(
       switchMap(product => {
@@ -48,28 +58,36 @@ export class DetailsComponent implements OnInit {
   }
 
   onLike() {
-
+    // Add your like functionality here
   }
-  customEventHandler(event: string) {
 
+  customEventHandler(event: string) {
     this.product.pipe(
       switchMap((product) => {
         if (product) {
           const comment: IComment = {
+            _id: null as any,
             authorId: this.user?._id as any,
             authorName: this.user?.email as any,
             itemId: product._id,
             description: event,
-            createdAt: new Date()
-          }
-          return this.commentsService.createComment(comment);
-        }
-        else {
+            createdAt: new Date(),
+          };
+          return this.commentsService.createComment(comment).pipe(
+            switchMap(() => {
+              // Fetch the updated comments list after adding a new comment
+              return this.commentsService.getCommentsByProduct(product._id);
+            })
+          );
+        } else {
           return of(null);
         }
       })
-    ).subscribe()
+    ).subscribe((updatedComments) => {
+      if (updatedComments) {
+        // Update the comments observable with the new data
+        this.comments = of(updatedComments);
+      }
+    });
   }
-
-
 }

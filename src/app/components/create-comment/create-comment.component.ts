@@ -16,6 +16,8 @@ export class CreateCommentComponent {
   @Output('myCustomEvent') customEvent = new EventEmitter();
   initialComment: string = 'Type your comment here.';
 
+  constructor() {}
+
   onSubmit(formData: any) {
     this.customEvent.emit(formData.comment);
   }

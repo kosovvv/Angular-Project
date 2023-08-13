@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { Observable, shareReplay } from "rxjs";
 import { IComment } from "../models/IComment";
 import { HttpClient } from "@angular/common/http";
@@ -11,7 +11,7 @@ export class CommentsService {
 
     constructor(private http: HttpClient) { }
 
-
+    refetchEvent: EventEmitter<void> = new EventEmitter<void>();
     createComment(comment : IComment) {
         return this.http.post(`http://localhost:3030/data/comments/`, comment)
     }
