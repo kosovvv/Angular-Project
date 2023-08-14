@@ -17,8 +17,8 @@ async function create(item) {
     return Like.create(item);
 }
 
-async function deleteById(id) {
-    return Like.findByIdAndDelete(id);
+async function deleteById(authorId, itemId) {
+    return Like.deleteOne({ authorId, itemId });;
 }
 async function hasAuthorLikedItem(authorId, itemId) {
     const count = await Like.countDocuments({ authorId, itemId });

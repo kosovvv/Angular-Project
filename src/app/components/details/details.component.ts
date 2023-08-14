@@ -2,10 +2,12 @@ import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
 import { IComment } from 'src/app/models/IComment';
+import { ILike } from 'src/app/models/ILike';
 import { IProduct } from 'src/app/models/IProduct';
 import { IUser } from 'src/app/models/IUser';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { CommentsService } from 'src/app/services/comments.service';
+import { LikeService } from 'src/app/services/like-service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -18,13 +20,16 @@ export class DetailsComponent implements OnInit {
   user!: IUser | null
   product!: Observable<IProduct>
   comments!: Observable<IComment[] | null>;
+  isLiked!: Observable<boolean>
+  likes!: Observable<ILike>
   
   constructor(
     private authService: AuthServiceService,
     private route: ActivatedRoute,
     private productService: ProductsService,
     private router: Router,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private likesService: LikeService
   ) { }
 
   ngOnInit(): void {
@@ -34,16 +39,17 @@ export class DetailsComponent implements OnInit {
     this.comments = this.route.data.pipe(
       map(item => item['comments'])
     )
+    this.likes = this.route.data.pipe(
+      map(item => item['likeCount'])
+    )
+    this.isLiked = this.route.data.pipe(
+      map(item => item['isLiked'])
+    )
+  
 
     this.authService.user$.subscribe((user) => {
       this.user = user;
     })
-  }
-
-  reloadComments(): void {
-    this.comments = this.route.data.pipe(
-      map(item => item['comments'])
-    )
   }
 
   onDelete() {
@@ -57,8 +63,37 @@ export class DetailsComponent implements OnInit {
     })
   }
 
+  updateLike() {
+    this.isLiked = this.product.pipe(
+      switchMap(product => {
+        return this.likesService.hasAuthorLikedItem(product._id)
+      })
+    )
+  }
+
   onLike() {
-    // Add your like functionality here
+    this.product.pipe(
+      switchMap(product => {
+        const like:ILike = {
+          _id : null as any,
+          authorId: this.user?._id as any,
+          authorName: this.user?.email as any,
+          itemId: product._id
+        }
+        return this.likesService.createLike(like);
+      })
+    ).subscribe(() => {
+      this.updateLike();
+    });
+  }
+  onUnlike() {
+    this.product.pipe(
+      switchMap(product => {
+        return this.likesService.deleteCommentById(product._id);
+      })
+    ).subscribe(() => {
+      this.updateLike()
+    });
   }
 
   customEventHandler(event: string) {
@@ -75,7 +110,6 @@ export class DetailsComponent implements OnInit {
           };
           return this.commentsService.createComment(comment).pipe(
             switchMap(() => {
-              // Fetch the updated comments list after adding a new comment
               return this.commentsService.getCommentsByProduct(product._id);
             })
           );

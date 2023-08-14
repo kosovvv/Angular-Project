@@ -32,7 +32,7 @@ async function start() {
     app.use('/users', authController);
     app.use('/data/catalog', dataController);
     app.use('/data/comments', commentController);
-    app.use('data/likes', likeController);
+    app.use('/data/likes', likeController);
 
     app.listen(3030, () => console.log('REST service started'));
 }

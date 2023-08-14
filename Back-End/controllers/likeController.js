@@ -1,4 +1,5 @@
-const { getByUserId, getByProductId, create, getById, deleteById } = require('../services/likeService');
+const { getByUserId, getByProductId, create, deleteById, hasAuthorLikedItem } = require('../services/likeService');
+const {getById} = require('../services/itemService');
 const { hasUser } = require('../middlewares/guards');
 const likeController = require('express').Router();
 
@@ -9,6 +10,11 @@ likeController.get('/', async (req, res) => {
         items = await getByUserId(userId);
     }
     res.json(items);
+});
+
+likeController.get('/isliked/:id', async (req, res, next) => {
+    const item = await hasAuthorLikedItem(req.user._id,req.params.id);
+    res.json(item);
 });
 
 likeController.get('/:id', async (req, res, next) => {
@@ -31,11 +37,11 @@ likeController.post('/', hasUser(), async (req, res) => {
 
 likeController.delete('/:id', hasUser(), async (req, res) => {
     const item = await getById(req.params.id);
-    if (req.user._id != item.authorId) {
+    if (req.user._id != item._ownerId) {
         return res.status(403).json({ message: 'You cannot modify this record' });
     }
     try {
-        await deleteById(req.params.id);
+        await deleteById(req.user._id, req.params.id);
         res.status(204).end();
     } catch (err) {
         const message = parseError(err);

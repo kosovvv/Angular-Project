@@ -11,7 +11,6 @@ export class CommentsService {
 
     constructor(private http: HttpClient) { }
 
-    refetchEvent: EventEmitter<void> = new EventEmitter<void>();
     createComment(comment : IComment) {
         return this.http.post(`http://localhost:3030/data/comments/`, comment)
     }

@@ -10,6 +10,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { MyFurnitureComponent } from './components/my-furniture/my-furniture.component';
 import { ProductDetailsResolver } from './resolvers/details.resolver';
 import { CommentsResolver } from './resolvers/comments.resolver';
+import { LikeCountResolver } from './resolvers/like-count-resolver';
+import { isLikedResolver } from './resolvers/is-liked-resolver';
 
 const routes: Routes = [
   {
@@ -38,7 +40,9 @@ const routes: Routes = [
     component: DetailsComponent,
     resolve: {
       products: ProductDetailsResolver,
-      comments: CommentsResolver
+      comments: CommentsResolver,
+      likeCount: LikeCountResolver,
+      isLiked: isLikedResolver
     }
   },
   {
@@ -63,7 +67,10 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     ProductDetailsResolver,
-    CommentsResolver
+    CommentsResolver,
+    LikeCountResolver,
+    isLikedResolver
+
   ]
 })
 export class AppRoutingModule { }
