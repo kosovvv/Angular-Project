@@ -7,6 +7,7 @@ const dataController = require('./controllers/dataController');
 const commentController = require('./controllers/commentController');
 const trimBody = require('./middlewares/trimBody');
 const session = require('./middlewares/session');
+const likeController = require('./controllers/likeController');
 
 
 const connectionString = 'mongodb://localhost:27017/furniture3';
@@ -30,7 +31,8 @@ async function start() {
 
     app.use('/users', authController);
     app.use('/data/catalog', dataController);
-    app.use('/data/comments', commentController)
+    app.use('/data/comments', commentController);
+    app.use('data/likes', likeController);
 
     app.listen(3030, () => console.log('REST service started'));
 }
