@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IComment } from 'src/app/models/IComment';
-import { CommentsService } from 'src/app/services/comments.service';
+import { IComment } from 'src/app/shared/models/IComment';
+import { CommentsService } from 'src/app/shared/services/comments.service';
 
 @Component({
   selector: 'app-comments',

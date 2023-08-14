@@ -1,7 +1,8 @@
 import { HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUser } from 'src/app/models/IUser';
+import { IUser } from 'src/app/shared/models/IUser';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,14 @@ export class AuthInterceptor {
 
     const storage:IUser = JSON.parse(localStorage.getItem('auth_data') as any);
 
-    
-    req = req.clone({
-      setHeaders: {
-        'x-authorization': `${storage.accessToken}`
-      }
-    });
+    if (storage) {
+      req = req.clone({
+        setHeaders: {
+          'x-authorization': `${storage.accessToken}`
+        }
+      });
+    }
+   
 
     return next.handle(req);
   }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, switchMap } from 'rxjs';
-import { IProduct } from 'src/app/models/IProduct';
-import { IUser } from 'src/app/models/IUser';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { ProductsService } from 'src/app/services/products.service';
+import { IProduct } from 'src/app/shared/models/IProduct';
+import { IUser } from 'src/app/shared/models/IUser';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
   selector: 'app-edit',
@@ -44,7 +44,7 @@ export class EditComponent implements OnInit {
         else return of(null);
       })
     ).subscribe(() => {
-      this.router.navigate(['']);
+      this.router.navigate(['/furniture']);
     })
   }
 }

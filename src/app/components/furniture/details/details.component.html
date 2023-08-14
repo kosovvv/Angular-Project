@@ -19,10 +19,11 @@
             <p>Description: <span>{{product.description}}</span></p>
             <p>Price: <span>{{product.price}}</span></p>
             <p>Material: <span>{{product.material}}</span></p>
-            <p>{{isLiked | async}}</p>
+            <p>Likes: <span>{{(likes)}}</span></p>
             <ng-container *ngIf="true">
                 <div>
-                    <a [routerLink]="['/edit', product._id]" class="btn btn-info">Edit</a>
+                    <a [routerLink]="['/furniture', 'edit', product._id]" class="btn btn-info">Edit</a>
+
                     <a (click)="onDelete()" class="btn btn-red">Delete</a>
                     <a *ngIf="!(isLiked | async)" (click)="onLike()" class="btn btn-info">Like</a>
                     <a *ngIf="isLiked | async" (click)="onUnlike()" class="btn btn-info">Unlike</a>

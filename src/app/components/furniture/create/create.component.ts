@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
-import { IProduct } from 'src/app/models/IProduct';
-import { IUser } from 'src/app/models/IUser';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { ProductsService } from 'src/app/services/products.service';
+import { IProduct } from 'src/app/shared/models/IProduct';
+import { IUser } from 'src/app/shared/models/IUser';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
   selector: 'app-create',

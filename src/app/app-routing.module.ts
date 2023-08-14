@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { CreateComponent } from './components/create/create.component';
-import { DetailsComponent } from './components/details/details.component';
-import { EditComponent } from './components/edit/edit.component';
-import { LogoutComponent } from './components/logout/logout.component';
-import { MyFurnitureComponent } from './components/my-furniture/my-furniture.component';
-import { ProductDetailsResolver } from './resolvers/details.resolver';
-import { CommentsResolver } from './resolvers/comments.resolver';
-import { LikeCountResolver } from './resolvers/like-count-resolver';
-import { isLikedResolver } from './resolvers/is-liked-resolver';
+import { LoginComponent } from './components/auth/login/login.component';
+import { DetailsComponent } from './components/furniture/details/details.component';
+import { DashboardComponent } from './components/furniture/dashboard/dashboard.component';
+import { LogoutComponent } from './components/auth/logout/logout.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { CreateComponent } from './components/furniture/create/create.component';
+import { EditComponent } from './components/furniture/edit/edit.component';
+import { MyFurnitureComponent } from './components/furniture/my-furniture/my-furniture.component';
+import { ProductDetailsResolver } from './shared/resolvers/details.resolver';
+import { CommentsResolver } from './shared/resolvers/comments.resolver';
+import { LikeCountResolver } from './shared/resolvers/like-count-resolver';
+import { isLikedResolver } from './shared/resolvers/is-liked-resolver';
 
 const routes: Routes = [
+  //http://localhost:4200/furniture/details/64d624e918d92df2eb1b6f63
   {
-    path: '',
-    pathMatch: 'full',
-    component: DashboardComponent
+    path: 'furniture',
+    loadChildren: () => import('./components/furniture/furniture.module').then(m => m.FurnitureModule)
   },
   {
     path: 'login',
@@ -32,31 +32,6 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'create',
-    component: CreateComponent
-  },
-  {
-    path: 'details/:id',
-    component: DetailsComponent,
-    resolve: {
-      products: ProductDetailsResolver,
-      comments: CommentsResolver,
-      likeCount: LikeCountResolver,
-      isLiked: isLikedResolver
-    }
-  },
-  {
-    path: 'edit/:id',
-    component: EditComponent,
-    resolve: {
-      products: ProductDetailsResolver
-    }
-  },
-  {
-    path: 'my-furniture',
-    component: MyFurnitureComponent
-  },
-  {
     path: '**',
     redirectTo: '/not-found'
   }
@@ -66,10 +41,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [
-    ProductDetailsResolver,
-    CommentsResolver,
-    LikeCountResolver,
-    isLikedResolver
 
   ]
 })

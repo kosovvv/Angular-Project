@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { CommentsService } from 'src/app/services/comments.service';
+import { CommentsService } from 'src/app/shared/services/comments.service';
 
 
 export interface ICustomEvent {

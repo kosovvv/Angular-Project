@@ -1,14 +1,15 @@
 import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
-import { IComment } from 'src/app/models/IComment';
-import { ILike } from 'src/app/models/ILike';
-import { IProduct } from 'src/app/models/IProduct';
-import { IUser } from 'src/app/models/IUser';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { CommentsService } from 'src/app/services/comments.service';
-import { LikeService } from 'src/app/services/like-service';
-import { ProductsService } from 'src/app/services/products.service';
+import { IComment } from 'src/app/shared/models/IComment';
+import { ILike } from 'src/app/shared/models/ILike';
+import { IProduct } from 'src/app/shared/models/IProduct';
+import { IUser } from 'src/app/shared/models/IUser';
+
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { CommentsService } from 'src/app/shared/services/comments.service';
+import { LikeService } from 'src/app/shared/services/like-service';
+import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
   selector: 'app-details',
@@ -21,7 +22,7 @@ export class DetailsComponent implements OnInit {
   product!: Observable<IProduct>
   comments!: Observable<IComment[] | null>;
   isLiked!: Observable<boolean>
-  likes!: Observable<ILike>
+  likes!: number;
   
   constructor(
     private authService: AuthServiceService,
@@ -39,17 +40,13 @@ export class DetailsComponent implements OnInit {
     this.comments = this.route.data.pipe(
       map(item => item['comments'])
     )
-    this.likes = this.route.data.pipe(
-      map(item => item['likeCount'])
-    )
     this.isLiked = this.route.data.pipe(
       map(item => item['isLiked'])
     )
-  
-
     this.authService.user$.subscribe((user) => {
       this.user = user;
     })
+    this.updateLikeCount();
   }
 
   onDelete() {
@@ -63,12 +60,20 @@ export class DetailsComponent implements OnInit {
     })
   }
 
+  updateLikeCount() {
+    this.product.pipe(
+      switchMap(product => {
+        return this.likesService.getLikesByProduct(product._id)
+      })
+    ).subscribe((arrayLikes) => this.likes = arrayLikes.length)
+  }
   updateLike() {
     this.isLiked = this.product.pipe(
       switchMap(product => {
         return this.likesService.hasAuthorLikedItem(product._id)
       })
     )
+    this.updateLikeCount();
   }
 
   onLike() {
