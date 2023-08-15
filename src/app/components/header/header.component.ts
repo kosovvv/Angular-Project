@@ -9,10 +9,14 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 export class HeaderComponent implements OnInit {
 
   isLoggedIn!: boolean
+  email! : string | undefined;
 
   constructor(public authService: AuthServiceService) { }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe((user) => {
+      this.email = user?.email;
+    })
   }
 
 }

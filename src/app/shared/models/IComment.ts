@@ -4,5 +4,5 @@ export interface IComment {
     authorName: string;
     itemId: string;
     description: string;
-    createdAt: Date
+    createdAt: string
 };

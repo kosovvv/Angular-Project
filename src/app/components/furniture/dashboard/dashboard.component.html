@@ -4,6 +4,9 @@
         <p>Select furniture from the catalog to view details.</p>
     </div>
 </div>
-<div *ngFor="let product of (prodoucts$ | async)" class="row space-top">
-    <app-cart-item [product]="product"></app-cart-item>
+
+<div class="row space-top">
+    <ng-container  *ngFor="let product of (prodoucts$ | async)">
+        <app-cart-item [product]="product"></app-cart-item>
+    </ng-container>
 </div>

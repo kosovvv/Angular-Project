@@ -8,12 +8,14 @@ import { LikeCountResolver } from "src/app/shared/resolvers/like-count-resolver"
 import { isLikedResolver } from "src/app/shared/resolvers/is-liked-resolver";
 import { EditComponent } from "./edit/edit.component";
 import { MyFurnitureComponent } from "./my-furniture/my-furniture.component";
+import { AuthGuard } from "src/app/shared/guards/auth-guard";
+import { isAuthorGuard } from "src/app/shared/guards/isAuthor-guard";
 
 const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        component: DashboardComponent
+        component: DashboardComponent,
     },
     {
         path: 'create',
@@ -22,6 +24,7 @@ const routes: Routes = [
     {
         path: 'details/:id',
         component: DetailsComponent,
+        
         resolve: {
             products: ProductDetailsResolver,
             comments: CommentsResolver,
@@ -32,6 +35,7 @@ const routes: Routes = [
     {
         path: 'edit/:id',
         component: EditComponent,
+        canActivate:[isAuthorGuard],
         resolve: {
             products: ProductDetailsResolver
         }

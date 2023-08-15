@@ -4,6 +4,8 @@
         <p>This is a list of your publications.</p>
     </div>
 </div>
-<div *ngFor="let product of (products$ | async)" class="row space-top">
-    <app-cart-item [product]="product"></app-cart-item>
+<div class="row space-top">
+    <ng-container  *ngFor="let product of (products$ | async)">
+        <app-cart-item [product]="product"></app-cart-item>
+    </ng-container>
 </div>

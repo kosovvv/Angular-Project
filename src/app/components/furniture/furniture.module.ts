@@ -11,6 +11,7 @@ import { CommentsComponent } from "./comments/comments.component";
 import { CreateCommentComponent } from "./create-comment/create-comment.component";
 import { RouterModule } from "@angular/router";
 import { FurnitureRoutingModule } from "./furniture-routing.module";
+import { ElapsedTimePipe } from "src/app/shared/pipes/elapsed-time";
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { FurnitureRoutingModule } from "./furniture-routing.module";
       DashboardComponent,
       CartItemComponent,
       CommentsComponent,
-      CreateCommentComponent
+      CreateCommentComponent,
+      ElapsedTimePipe
     ],
     imports: [
       CommonModule,

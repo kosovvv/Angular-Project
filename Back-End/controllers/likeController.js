@@ -13,6 +13,7 @@ likeController.get('/', async (req, res) => {
 });
 
 likeController.get('/isliked/:id', async (req, res, next) => {
+    
     const item = await hasAuthorLikedItem(req.user._id,req.params.id);
     res.json(item);
 });

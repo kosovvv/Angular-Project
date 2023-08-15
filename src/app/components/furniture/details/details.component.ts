@@ -21,6 +21,7 @@ export class DetailsComponent implements OnInit {
   user!: IUser | null
   product!: Observable<IProduct>
   comments!: Observable<IComment[] | null>;
+  isAuthor!: boolean;
   isLiked!: Observable<boolean>
   likes!: number;
   
@@ -36,6 +37,9 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.product = this.route.data.pipe(
       map(item => item['products']),
+      tap(product => {
+        this.isAuthor = this.user?._id == product._ownerId
+      }),
     )
     this.comments = this.route.data.pipe(
       map(item => item['comments'])
@@ -52,11 +56,11 @@ export class DetailsComponent implements OnInit {
   onDelete() {
     this.product.pipe(
       switchMap(product => {
-        if (product) return this.productService.deleteProductById(product._id)
+        if (product && product._ownerId == this.user?._id) return this.productService.deleteProductById(product._id)
         else return of(null);
       })
     ).subscribe(() => {
-      this.router.navigate(['/'])
+      this.router.navigate(['/furniture'])
     })
   }
 
@@ -111,7 +115,7 @@ export class DetailsComponent implements OnInit {
             authorName: this.user?.email as any,
             itemId: product._id,
             description: event,
-            createdAt: new Date(),
+            createdAt: new Date().toString(),
           };
           return this.commentsService.createComment(comment).pipe(
             switchMap(() => {

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     const { email, password, rePass } = form.value;
     this.authService.login(email, password)
       .subscribe(user => {
-        this.router.navigate(['']);
+        this.router.navigate(['/furniture']);
         console.log('Successful reg')
       });
 

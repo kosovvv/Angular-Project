@@ -10,7 +10,7 @@
         <ng-template #viewMode>
             <span class="m-b-15 d-block">{{ comment.description }}</span>
             <div class="comment-footer">
-                <span class="text-muted float-right">{{ comment.createdAt }}</span>
+                <span class="text-muted float-right">{{ comment.createdAt | elapsedTime }}</span>
                 <button (click)="onEditComment()" type="button" class="btn btn-cyan btn-sm">Edit</button>
                 <button (click)="onDeleteComment()" type="button" class="btn btn-danger btn-sm">Delete</button>
             </div>

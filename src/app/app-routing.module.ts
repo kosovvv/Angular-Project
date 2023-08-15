@@ -12,24 +12,41 @@ import { ProductDetailsResolver } from './shared/resolvers/details.resolver';
 import { CommentsResolver } from './shared/resolvers/comments.resolver';
 import { LikeCountResolver } from './shared/resolvers/like-count-resolver';
 import { isLikedResolver } from './shared/resolvers/is-liked-resolver';
+import { AuthGuard } from './shared/guards/auth-guard';
 
 const routes: Routes = [
   //http://localhost:4200/furniture/details/64d624e918d92df2eb1b6f63
   {
     path: 'furniture',
+    canActivate: [AuthGuard],
+    data: {
+      loginRequired: true
+    },
     loadChildren: () => import('./components/furniture/furniture.module').then(m => m.FurnitureModule)
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AuthGuard],
+    data: {
+      loginRequired: false
+    }
   },
   {
     path: 'logout',
-    component: LogoutComponent
+    component: LogoutComponent,
+    canActivate: [AuthGuard],
+    data: {
+      loginRequired: true
+    }
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [AuthGuard],
+    data: {
+      loginRequired: false
+    }
   },
   {
     path: '**',
