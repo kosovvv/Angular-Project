@@ -1,5 +1,12 @@
-<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
-    <textarea class="comment" [(ngModel)]="initialComment" name="comment"></textarea>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <textarea class="comment" [(ngModel)]="initialComment" name="comment" required minlength="10"
+        maxlength="250"></textarea>
+    <div
+        *ngIf="form.controls['comment'].invalid && (form.controls['comment'].dirty || form.controls['comment'].touched)">
+        <div *ngIf="form.controls['comment'].errors?.required">Comment is required.</div>
+        <div *ngIf="form.controls['comment'].errors?.minlength">Comment must be at least 10 characters long.</div>
+        <div *ngIf="form.controls['comment'].errors?.maxlength">Comment can't exceed 250 characters.</div>
+    </div>
     <br>
-    <button type="submit" class="btn btn-primary">Comment</button>
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Comment</button>
 </form>

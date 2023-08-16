@@ -1,12 +1,19 @@
 <div class="d-flex flex-row comment-row">
     <div class="comment-text active w-100">
         <h6 class="font-medium">{{ comment.authorName }}</h6>
-        <ng-container *ngIf="editing; else viewMode">
-            <input type="text" class="form-control" [(ngModel)]="editedDescription">
-            <div class="comment-footer">
-                <button (click)="onSaveComment()" type="button" class="btn btn-success btn-sm">Save</button>
-            </div>
-        </ng-container>
+       <ng-container *ngIf="editing; else viewMode">
+        <form #form="ngForm">
+          <input type="text" class="form-control" [(ngModel)]="editedDescription" name="description" required minlength="10" maxlength="250">
+          <div *ngIf="form.controls['description'].invalid && (form.controls['description'].dirty || form.controls['description'].touched)">
+            <div *ngIf="form.controls['description'].errors?.required">Description is required.</div>
+            <div *ngIf="form.controls['description'].errors?.minlength">Description must be at least 10 characters long.</div>
+            <div *ngIf="form.controls['description'].errors?.maxlength">Description can't exceed 250 characters.</div>
+          </div>
+          <div class="comment-footer">
+            <button (click)="onSaveComment()" type="button" class="btn btn-success btn-sm" [disabled]="form.invalid">Save</button>
+          </div>
+        </form>
+      </ng-container>
         <ng-template #viewMode>
             <span class="m-b-15 d-block">{{ comment.description }}</span>
             <div class="comment-footer">

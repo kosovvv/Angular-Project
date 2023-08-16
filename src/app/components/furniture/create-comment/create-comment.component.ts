@@ -14,7 +14,7 @@ export interface ICustomEvent {
 export class CreateCommentComponent {
 
   @Output('myCustomEvent') customEvent = new EventEmitter();
-  initialComment: string = 'Type your comment here.';
+  initialComment: string = '';
 
   constructor() {}
 
