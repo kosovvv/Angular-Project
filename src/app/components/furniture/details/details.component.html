@@ -31,7 +31,9 @@
                 <a *ngIf="isLiked | async" (click)="onUnlike()" class="btn btn-info">Unlike</a>
             </ng-container>
         </div>
-        <app-create-comment (myCustomEvent)="customEventHandler($event)"></app-create-comment>
+        <ng-container *ngIf="!isAuthor">
+            <app-create-comment (myCustomEvent)="customEventHandler($event)"></app-create-comment>
+        </ng-container>
         <div class="row d-flex justify-content-center mt-100 mb-100">
             <div class="col-lg-6">
                 <div class="card-comments">

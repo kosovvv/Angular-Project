@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IComment } from 'src/app/shared/models/IComment';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 
 @Component({
@@ -11,11 +12,15 @@ export class CommentsComponent implements OnInit {
 
   @Input() comment!:IComment
   @Output('deleteNotify') deleteNotify = new EventEmitter();
+  canEditComment! : boolean;
   editing: boolean = false;
   editedDescription: string = '';
-  constructor(private commentsService: CommentsService) { }
+  constructor(private commentsService: CommentsService, private authService: AuthServiceService) {
+    
+  }
   
   ngOnInit(): void {
+    this.authService.user$.subscribe((user) => {this.canEditComment = this.comment.authorId == user?._id})
   }
 
   onEditComment() {
