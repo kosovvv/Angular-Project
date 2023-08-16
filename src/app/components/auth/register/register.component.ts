@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { emailValidator } from 'src/app/shared/validators/check-existing-user-asyncvalidator';
+import { sameValueGroupValidator } from 'src/app/shared/validators/password-match-validator';
+
 
 @Component({
   selector: 'app-register',
@@ -8,50 +12,35 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  userForm!: FormGroup;
+  errorMsg: string = '';
+  emailTouched: boolean = false;
+  passTouched: boolean = false;
+  reTouched: boolean = false;
 
-  constructor(private authService: AuthServiceService, private router: Router) { }
+  constructor(private authService: AuthServiceService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.initForm();
   }
-  errorMsg: string = '';
-  invalidEmail: boolean = false;
-  invalidPass: boolean = false;
-  invalidRe: boolean = false;
-  
-  user = {
-    email: '',
-    password: '',
-    rePass: ''
-  };
 
-  loginHandler(form : any) {
-    if (this.user.password !== this.user.rePass) {
-      this.invalidPass = true;
-      this.invalidRe = true;
-      this.errorMsg = 'Passwords do not match.';
-      return;
+  initForm(): void {
+    this.userForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email], [emailValidator(this.authService)]],
+      password: ['', [Validators.required]],
+      rePass: ['', [Validators.required]]
+    }, { validator: sameValueGroupValidator('password', 'rePass') }); 
+  }
+
+  registerHandler(): void {
+    if (this.userForm.valid) {
+      const { email, password } = this.userForm.value;
+      this.authService.register(email, password)
+        .subscribe(user => {
+          this.router.navigate(['/']);
+        });
+    } else {
+      this.errorMsg = 'Please correct the errors and try again.';
     }
-
-    // Simulate registration logic (you can replace this with your actual registration logic)
-    console.log(form.controls);
-    this.user = form.controls;
-    const { email, password, rePass } = form.value;
-    this.authService.register(email, password)
-      .subscribe(user => {
-        this.router.navigate(['']);
-        console.log('Successful reg')
-      });
-
-    // Clear error messages and reset form
-    this.invalidEmail = false;
-    this.invalidPass = false;
-    this.invalidRe = false;
-    this.errorMsg = '';
-
-    // Reset form inputs
-    this.user.email = '';
-    this.user.password = '';
-    this.user.rePass = '';
   }
-
 }

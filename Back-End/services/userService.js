@@ -7,6 +7,16 @@ const secret = 'q-90234xcwmietvuselrg';
 
 const tokenBlacklist = new Set();
 
+async function getUserByEmail(email) {
+    const existing = await User.findOne({ email }).collation({ locale: 'en', strength: 2 });
+    if (existing) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 async function register(email, password) {
     const existing = await User.findOne({ email }).collation({ locale: 'en', strength: 2 });
     if (existing) {
@@ -64,5 +74,6 @@ module.exports = {
     register,
     login,
     logout,
-    parseToken
+    parseToken,
+    getUserByEmail
 };

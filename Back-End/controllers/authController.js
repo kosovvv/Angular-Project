@@ -1,9 +1,18 @@
 const authController = require('express').Router();
 const { body, validationResult } = require('express-validator');
 
-const { register, login, logout } = require('../services/userService');
+const { register, login, logout, getUserByEmail } = require('../services/userService');
 const { parseError } = require('../util/parser');
 
+
+
+authController.get('/:id', async (req, res, next) => {
+    const encodedEmail = req.params.id
+    const decodedEmail = atob(encodedEmail);
+
+    const item = await getUserByEmail(decodedEmail)
+    res.json(item);
+});
 
 authController.post('/register',
     body('email').isEmail().withMessage('Invalid email'),

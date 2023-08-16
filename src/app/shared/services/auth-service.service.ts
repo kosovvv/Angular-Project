@@ -34,11 +34,15 @@ export class AuthServiceService {
     return this.http.post<IUser>('http://localhost:3030/users/register', {email, password}).pipe(
       tap(user => {
         this.subject.next(user);
-        console.log('asd');
         localStorage.setItem(AUTH_DATA, JSON.stringify(user));
       }),
       shareReplay()
     )
+  }
+
+  getUserByEmail(email:string) : Observable<boolean> {
+    const encodedEmail = btoa(email);
+    return this.http.get<boolean>(`http://localhost:3030/users/${encodedEmail}`);
   }
 
 

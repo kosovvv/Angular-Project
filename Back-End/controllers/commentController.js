@@ -20,7 +20,7 @@ commentController.get('/:id', async (req, res, next) => {
 });
 
 commentController.post('/', hasUser(), async (req, res) => {
-    console.log('working')
+   
     try {
         const data = Object.assign({ _ownerId: req.user._id }, req.body);
         const item = await create(data);

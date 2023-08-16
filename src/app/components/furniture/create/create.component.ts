@@ -32,10 +32,6 @@ export class CreateComponent implements OnInit {
   };
 
   onSubmit(formValue : any) {
-    // Your form submission logic goes here
-    // For example, you can send the form data to a service for processing
-
-    console.log('Form data:', this.furniture);
     const product : IProduct = {
       _id: formValue._id,
       make: formValue.make,

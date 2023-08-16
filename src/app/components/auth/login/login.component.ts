@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { passwordValidator } from 'src/app/shared/validators/password-validator';
 
 @Component({
   selector: 'app-login',
@@ -8,42 +10,33 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  userForm!: FormGroup;
+  errorMsg: string = '';
+  emailTouched: boolean = false;
+  passTouched: boolean = false;
 
-  constructor(private authService:AuthServiceService, private router: Router) { }
+  constructor(private authService: AuthServiceService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-  }
-  errorMsg: string = '';
-  invalidEmail: boolean = false;
-  invalidPass: boolean = false;
-
-  
-  user = {
-    email: '',
-    password: '',
-  };
-
-  loginHandler(form : any) {
-  
-
-    // Simulate registration logic (you can replace this with your actual registration logic)
-    console.log(form.controls);
-    this.user = form.controls;
-    const { email, password, rePass } = form.value;
-    this.authService.login(email, password)
-      .subscribe(user => {
-        this.router.navigate(['/furniture']);
-        console.log('Successful reg')
-      });
-
-    // Clear error messages and reset form
-    this.invalidEmail = false;
-    this.invalidPass = false;
-    this.errorMsg = '';
-
-    // Reset form inputs
-    this.user.email = '';
-    this.user.password = '';
+    this.initForm();
   }
 
+  initForm(): void {
+    this.userForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, passwordValidator()]]
+    });
+  }
+
+  loginHandler(): void {
+    if (this.userForm.valid) {
+      const { email, password } = this.userForm.value;
+      this.authService.login(email, password)
+        .subscribe(user => {
+          this.router.navigate(['/furniture']);
+        });
+    } else {
+      this.errorMsg = 'Please correct the errors and try again.';
+    }
+  }
 }
