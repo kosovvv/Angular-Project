@@ -11,12 +11,14 @@ import { ProductDetailsResolver } from './shared/resolvers/details.resolver';
 import { CommentsResolver } from './shared/resolvers/comments.resolver';
 import { LikeCountResolver } from './shared/resolvers/like-count-resolver';
 import { isLikedResolver } from './shared/resolvers/is-liked-resolver';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
