@@ -51,4 +51,3 @@ Then `npm start`<br>
 <br>
 Then type `ng serve` in the root folder <br>
 <br>
-<h3>And you are ready to go!</h3>
