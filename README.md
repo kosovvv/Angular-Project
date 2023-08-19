@@ -4,6 +4,7 @@
 <h2>Description</h2>
 <p>Furniture Store is a simple project created in Angular for the course in SoftUni. </p>
 
+<h3>Home View for Guest</h3>
 <br>
 <img src="https://i.imgur.com/GIypipV.png" alt="home-page">
 <h2>Back-End</h2>
@@ -26,11 +27,12 @@
 <p>:heavy_check_mark: Login Page</p>
 <p>:heavy_check_mark: Register Page</p>
 
+
+<h3>Details viewView</h3>
 <br>
 <img src="https://i.imgur.com/qgF5HMn.png" alt="details-page">
 
 <br>
-<h3>Logged User View</h3>
 <p>:heavy_check_mark: Dashboard Page</p>
 <p>:heavy_check_mark: Create Furniture</p>
 <p>:heavy_check_mark: Details Page</p>
