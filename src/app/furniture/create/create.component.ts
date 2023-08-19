@@ -21,45 +21,21 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  furniture = {
-    make: '',
-    model: '',
-    year: null,
-    description: '',
-    price: null,
-    img: '',
-    material: ''
-  };
 
   onSubmit(formValue : any) {
     const product : IProduct = {
-      _id: formValue._id,
-      make: formValue.make,
-      model: formValue.model,
-      year: formValue.year,
-      description: formValue.description,
-      price: formValue.price,
-      img: formValue.img,
-      material: formValue.material,
+      _id: null as any,
+      make: formValue.controls.make.value,
+      model: formValue.controls.model.value,
+      year: formValue.controls.year.value,
+      description: formValue.controls.description.value,
+      price: formValue.controls.price.value,
+      img: formValue.controls.img.value,
+      material: formValue.controls.material.value,
       _ownerId: this.currentUser?._id || null
   };
     this.productsService.createProduct(product).subscribe(() => {
-      this.router.navigate(['']);
+      this.router.navigate(['/furniture']);
     })
-    // Clear the form after submission
-    this.resetForm();
-  }
-   
-
-  resetForm() {
-    this.furniture = {
-      make: '',
-      model: '',
-      year: null,
-      description: '',
-      price: null,
-      img: '',
-      material: ''
-    };
   }
 }

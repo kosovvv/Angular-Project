@@ -4,13 +4,13 @@
         <p>Please fill all fields.</p>
     </div>
 </div>
-<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" >
     <div class="row space-top">
         <div class="col-md-4">
             <div class="form-group">
                 <label class="form-control-label" for="new-make">Make</label>
-                <input class="form-control" id="new-make" type="text" name="make" [(ngModel)]="furniture.make"
-                       required minlength="4" maxlength="30" #make="ngModel">
+                <input class="form-control" id="new-make" type="text" name="make" #make="ngModel" ngModel
+                       required minlength="4" maxlength="30">
                 <div *ngIf="make.invalid && (make.dirty || make.touched)" class="alert alert-danger">
                     <div *ngIf="make.errors?.required">Make is required.</div>
                     <div *ngIf="make.errors?.minlength">Make must be at least 4 characters long.</div>
@@ -19,8 +19,8 @@
             </div>
             <div class="form-group">
                 <label class="form-control-label" for="new-model">Model</label>
-                <input class="form-control" id="new-model" type="text" name="model" [(ngModel)]="furniture.model"
-                       required minlength="4" maxlength="30" #model="ngModel">
+                <input class="form-control" id="new-model" type="text" name="model" #model="ngModel" ngModel
+                       required minlength="4" maxlength="30">
                 <div *ngIf="model.invalid && (model.dirty || model.touched)" class="alert alert-danger">
                     <div *ngIf="model.errors?.required">Model is required.</div>
                     <div *ngIf="model.errors?.minlength">Model must be at least 4 characters long.</div>
@@ -29,8 +29,8 @@
             </div>
             <div class="form-group">
                 <label class="form-control-label" for="new-year">Year</label>
-                <input class="form-control" id="new-year" type="number" name="year" [(ngModel)]="furniture.year"
-                       required pattern="[0-9]{4}" #year="ngModel">
+                <input class="form-control" id="new-year" type="number" name="year"#year="ngModel" ngModel
+                       required pattern="[0-9]{4}">
                 <div *ngIf="year.invalid && (year.dirty || year.touched)" class="alert alert-danger">
                     <div *ngIf="year.errors?.required">Year is required.</div>
                     <div *ngIf="year.errors?.pattern">Year must be a 4-digit number.</div>
@@ -38,8 +38,8 @@
             </div>
             <div class="form-group">
                 <label class="form-control-label" for="new-description">Description</label>
-                <input class="form-control" id="new-description" type="text" name="description" [(ngModel)]="furniture.description"
-                       required minlength="10" maxlength="200" #description="ngModel">
+                <input class="form-control" id="new-description" type="text" name="description" #description="ngModel" ngModel
+                       required minlength="10" maxlength="200">
                 <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
                     <div *ngIf="description.errors?.required">Description is required.</div>
                     <div *ngIf="description.errors?.minlength">Description must be at least 10 characters long.</div>
@@ -50,24 +50,24 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label class="form-control-label" for="new-price">Price</label>
-                <input class="form-control" id="new-price" type="number" name="price" [(ngModel)]="furniture.price"
-                       required #price="ngModel">
+                <input class="form-control" id="new-price" type="number" name="price" #price="ngModel" ngModel
+                       required>
                 <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
                     <div *ngIf="price.errors?.required">Price is required.</div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="form-control-label" for="new-image">Image</label>
-                <input class="form-control" id="new-image" type="text" name="img" [(ngModel)]="furniture.img"
-                       required #img="ngModel">
+                <input class="form-control" id="new-image" type="text" name="img" #img="ngModel" ngModel
+                       required>
                 <div *ngIf="img.invalid && (img.dirty || img.touched)" class="alert alert-danger">
                     <div *ngIf="img.errors?.required">Image is required.</div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="form-control-label" for="new-material">Material (optional)</label>
-                <input class="form-control" id="new-material" type="text" name="material" [(ngModel)]="furniture.material"
-                       minlength="4" maxlength="20" #material="ngModel">
+                <input class="form-control" id="new-material" type="text" name="material" #material="ngModel" ngModel
+                       minlength="4" maxlength="20">
                 <div *ngIf="material.invalid && (material.dirty || material.touched)" class="alert alert-danger">
                     <div *ngIf="material.errors?.minlength">Material must be at least 4 characters long.</div>
                     <div *ngIf="material.errors?.maxlength">Material can't be longer than 20 characters.</div>
