@@ -4,6 +4,40 @@
     padding: 10px;
     background-color: #d0e2bc;
 }
+.btn {
+    font-size: .75rem;
+    text-transform: uppercase;
+    display: inline-block;
+    font-weight: 600;
+    color: #55595c;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 0 solid transparent;
+    padding: .75rem 1.5rem;
+    font-size: .875rem;
+    line-height: 1.5rem;
+    border-radius: 0;
+}
+
+.btn:hover {
+    background-color: #6c8b47;
+    color: white;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #1f9bcf;
+    border-color: #1f9bcf;
+}
+
+.btn-red {
+    color: #fff;
+    background-color: red;
+    border-color: red;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #010101;

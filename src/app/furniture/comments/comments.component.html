@@ -1,28 +1,32 @@
 <div class="d-flex flex-row comment-row">
-    <div class="comment-text active w-100">
-        <h6 class="font-medium">{{ comment.authorName }}</h6>
-       <ng-container *ngIf="editing; else viewMode">
-        <form #form="ngForm">
-          <input type="text" class="form-control" [(ngModel)]="editedDescription" name="description" required minlength="10" maxlength="250">
-          <div *ngIf="form.controls['description'].invalid && (form.controls['description'].dirty || form.controls['description'].touched)">
-            <div *ngIf="form.controls['description'].errors?.required">Description is required.</div>
-            <div *ngIf="form.controls['description'].errors?.minlength">Description must be at least 10 characters long.</div>
-            <div *ngIf="form.controls['description'].errors?.maxlength">Description can't exceed 250 characters.</div>
-          </div>
-          <div class="comment-footer">
-            <button (click)="onSaveComment()" type="button" class="btn btn-success btn-sm" [disabled]="form.invalid">Save</button>
-          </div>
-        </form>
-      </ng-container>
-        <ng-template #viewMode>
-            <span class="m-b-15 d-block">{{ comment.description }}</span>
-            <div class="comment-footer">
-                <span class="text-muted float-right">{{ comment.createdAt | elapsedTime }}</span>
-                <ng-container *ngIf="canEditComment">
-                    <button (click)="onEditComment()" type="button" class="btn btn-cyan btn-sm">Edit</button>
-                    <button (click)="onDeleteComment()" type="button" class="btn btn-danger btn-sm">Delete</button>
-                </ng-container>
-            </div>
-        </ng-template>
-    </div>
+  <div class="comment-text active w-100">
+    <h6 class="font-medium">{{ comment.authorName }}</h6>
+    <ng-container *ngIf="editing; else viewMode">
+      <form #form="ngForm" class="comment-form">
+        <input type="text" class="form-control comment-input" [(ngModel)]="editedDescription" name="description" required minlength="10" maxlength="250">
+        <div *ngIf="form.controls['description'].invalid && (form.controls['description'].dirty || form.controls['description'].touched)" class="comment-error">
+          <div *ngIf="form.controls['description'].errors?.required">Description is required.</div>
+          <div *ngIf="form.controls['description'].errors?.minlength">Description must be at least 10 characters long.</div>
+          <div *ngIf="form.controls['description'].errors?.maxlength">Description can't exceed 250 characters.</div>
+        </div>
+        <div class="comment-footer">
+          <button (click)="onSaveComment()" type="button" class="btn btn-success btn-sm comment-button" [disabled]="form.invalid">Save</button>
+        </div>
+      </form>
+    </ng-container>
+    <ng-template #viewMode>
+      <div class="comment">
+        <div class="comment-content">
+          <p class="comment-description">{{ comment.description }}</p>
+        </div>
+        <div class="comment-footer">
+          <span class="comment-time">{{ comment.createdAt | elapsedTime }}</span>
+          <ng-container *ngIf="canEditComment" class="comment-actions">
+            <button (click)="onEditComment()" type="button" class="comment-edit-btn comment-button">Edit</button>
+            <button (click)="onDeleteComment()" type="button" class="comment-delete-btn comment-button">Delete</button>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 </div>
