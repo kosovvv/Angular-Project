@@ -28,7 +28,7 @@
 <p>:heavy_check_mark: Register Page</p>
 
 
-<h3>Details viewView</h3>
+<h3>Details View</h3>
 <br>
 <img src="https://i.imgur.com/qgF5HMn.png" alt="details-page">
 
