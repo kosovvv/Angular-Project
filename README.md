@@ -1,27 +1,54 @@
-# MyApp
+<h1>Furniture Store</h1>
+<br>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+<h2>Description</h2>
+<p>Furniture Store is a simple project created in Angular for the course in SoftUni. </p>
 
-## Development server
+<br>
+<img src="https://i.imgur.com/GIypipV.png" alt="home-page">
+<h2>Back-End</h2>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<li>Modified SoftUni Practice Server from JS-Back-End</li>
 
-## Code scaffolding
+<br>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<h2>Front-End</h2>
 
-## Build
+<li>Angular</li>
+<li>HTML & CSS</li>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<br>
 
-## Running unit tests
+<h2>Functionality</h2>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<h3>Guest View</h3>
+<p>:heavy_check_mark: Home Page</p>
+<p>:heavy_check_mark: Login Page</p>
+<p>:heavy_check_mark: Register Page</p>
 
-## Running end-to-end tests
+<br>
+<img src="https://i.imgur.com/qgF5HMn.png" alt="details-page">
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+<br>
+<h3>Logged User View</h3>
+<p>:heavy_check_mark: Dashboard Page</p>
+<p>:heavy_check_mark: Create Furniture</p>
+<p>:heavy_check_mark: Details Page</p>
+<ul>
+- The owner of a furniture can delete it and can edit it. <br>
+- A logged user can like furniture and adds commments to it.<br>
+- The owner of the furniture can not like it <br>
+</ul>
+<p>:heavy_check_mark: Logout</p>
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<br>
+
+<h2>Starting the app locally</h2>
+
+Open a terminal and type `cd back-end` <br>
+Then `npm start`<br>
+<br>
+Then type `ng serve` in the root folder <br>
+<br>
+<h3>And you are ready to go!</h3>
