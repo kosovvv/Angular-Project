@@ -4,3 +4,8 @@
     padding: 10px;
     background-color: #d0e2bc;
 }
+.btn-primary {
+    color: #fff;
+    background-color: #010101;
+    border-color: #000;
+}

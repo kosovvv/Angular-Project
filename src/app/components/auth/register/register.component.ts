@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { emailValidator } from 'src/app/shared/validators/check-existing-user-asyncvalidator';
 import { sameValueGroupValidator } from 'src/app/shared/validators/password-match-validator';
 
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   passTouched: boolean = false;
   reTouched: boolean = false;
 
-  constructor(private authService: AuthServiceService, private router: Router, private fb: FormBuilder) { }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
       const { email, password } = this.userForm.value;
       this.authService.register(email, password)
         .subscribe(user => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/furniture']);
         });
     } else {
       this.errorMsg = 'Please correct the errors and try again.';

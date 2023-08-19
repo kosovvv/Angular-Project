@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IComment } from 'src/app/shared/models/IComment';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class CommentsComponent implements OnInit {
   canEditComment! : boolean;
   editing: boolean = false;
   editedDescription: string = '';
-  constructor(private commentsService: CommentsService, private authService: AuthServiceService) {
+  constructor(private commentsService: CommentsService, private authService: AuthService) {
     
   }
   

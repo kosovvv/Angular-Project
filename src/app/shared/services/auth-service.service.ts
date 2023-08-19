@@ -9,7 +9,7 @@ const AUTH_DATA = "auth_data";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   private subject = new BehaviorSubject<IUser | null>(null);
 

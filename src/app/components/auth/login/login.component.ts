@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { passwordValidator } from 'src/app/shared/validators/password-validator';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   emailTouched: boolean = false;
   passTouched: boolean = false;
 
-  constructor(private authService: AuthServiceService, private router: Router, private fb: FormBuilder) { }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initForm();

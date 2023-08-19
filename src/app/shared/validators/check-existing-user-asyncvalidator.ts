@@ -1,9 +1,9 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import { AuthServiceService } from '../services/auth-service.service';
+import { AuthService } from '../services/auth-service.service';
 import { Observable } from 'rxjs';
 
-export function emailValidator(authService: AuthServiceService): AsyncValidatorFn {
+export function emailValidator(authService: AuthService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
         return authService.getUserByEmail(control.value)
             .pipe(

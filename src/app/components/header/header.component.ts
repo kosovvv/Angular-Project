@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn!: boolean
   email! : string | undefined;
 
-  constructor(public authService: AuthServiceService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, shareReplay } from 'rxjs';
 import { IProduct } from '../models/IProduct';
-import { AuthServiceService } from './auth-service.service';
+import { AuthService } from './auth-service.service';
 import { IUser } from '../models/IUser';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { IUser } from '../models/IUser';
 })
 export class ProductsService {
 
-  constructor(private http: HttpClient, private authService: AuthServiceService) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
     });

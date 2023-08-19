@@ -29,27 +29,14 @@ import { isLikedResolver } from './shared/resolvers/is-liked-resolver';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    //DetailsComponent,
     HomeComponent,
-    //EditComponent,
-    //MyFurnitureComponent,
-    //CreateComponent,
-    //DashboardComponent,
     HeaderComponent,
-    //CartItemComponent,
-    RegisterComponent,
-    LogoutComponent,
-    //CommentsComponent,
-    //CreateCommentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   providers: [
     {

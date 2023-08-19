@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, switchMap } from 'rxjs';
 import { IProduct } from 'src/app/shared/models/IProduct';
 import { IUser } from 'src/app/shared/models/IUser';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class EditComponent implements OnInit {
 
   currentUser!:IUser | null
   product!: Observable<IProduct> 
-  constructor(private route: ActivatedRoute,private productService: ProductsService, private router: Router, private authService: AuthServiceService) {
+  constructor(private route: ActivatedRoute,private productService: ProductsService, private router: Router, private authService: AuthService) {
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
     })

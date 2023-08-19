@@ -19,7 +19,7 @@ export class CreateCommentComponent {
   constructor() {}
 
   onSubmit(formData: any) {
-    this.customEvent.emit(formData.comment);
+    this.customEvent.emit(formData.controls.comment.value);
   }
 
 

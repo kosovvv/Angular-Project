@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { IProduct } from 'src/app/shared/models/IProduct';
 import { IUser } from 'src/app/shared/models/IUser';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ProductsService } from 'src/app/shared/services/products.service';
 export class CreateComponent implements OnInit {
 
   currentUser!:IUser | null
-  constructor(private productsService : ProductsService, private authService:AuthServiceService, private router : Router) {
+  constructor(private productsService : ProductsService, private authService:AuthService, private router : Router) {
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
     })

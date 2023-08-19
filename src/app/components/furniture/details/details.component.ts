@@ -6,7 +6,7 @@ import { ILike } from 'src/app/shared/models/ILike';
 import { IProduct } from 'src/app/shared/models/IProduct';
 import { IUser } from 'src/app/shared/models/IUser';
 
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { LikeService } from 'src/app/shared/services/like-service';
 import { ProductsService } from 'src/app/shared/services/products.service';
@@ -26,7 +26,7 @@ export class DetailsComponent implements OnInit {
   likes!: number;
   
   constructor(
-    private authService: AuthServiceService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private productService: ProductsService,
     private router: Router,

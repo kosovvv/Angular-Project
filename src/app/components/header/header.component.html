@@ -2,15 +2,16 @@
 <header>
     <h1><a href="/furniture">Furniture Store</a></h1>
     <nav>
-        <a routerLink="/furniture">Dashboard</a>
         <div id="user" *ngIf="authService.isLoggedIn$ | async">
+            <a routerLink="/furniture">Dashboard</a>
             <a routerLink="/furniture/create">Create Furniture</a>
             <a routerLink="/furniture/my-furniture">My Publications</a>
-            <a routerLink="/logout">Logout</a>
+            <a routerLink="/auth/logout">Logout</a>
         </div>
         <div id="guest" *ngIf="authService.isLoggedOut$ | async">
-            <a routerLink="/login">Login</a>
-            <a routerLink="/register">Register</a>
+            <a routerLink="/">Home</a>
+            <a routerLink="/auth/login">Login</a>
+            <a routerLink="/auth/register">Register</a>
         </div>
     </nav>
 </header>
